@@ -33,12 +33,12 @@ VertDataOut VSDefault(VertDataIn v_in)
 
 float4 SubstractImage(VertDataOut v_in) : TARGET
 {
-	float4 rgba = target.Sample(textureSampler, v_in.uv2);
-	float4 imgRgba = image.Sample(textureSampler, v_in.uv2);
+float4 rgba = image.Sample(textureSampler, v_in.uv2);
+float4 targetRgba = target.Sample(textureSampler, v_in.uv2);
 
-	rgba.a *= max(abs(imgRgba - rgba, 2), 0.0);
+rgba.a = (rgba - targetRgba) * rgba2.a;
 
-	return rgba;
+return rgba;
 }
 
 technique Draw
